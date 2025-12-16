@@ -19,33 +19,40 @@
             --accent-color: #3498db;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
-            --text-color: #333;
-            --light-gray: #f5f5f5;
-            --border-color: #ddd;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
         
         body {
-            background-color: var(--light-color);
-            color: var(--text-color);
-            transition: background-image 0.5s;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
             min-height: 100vh;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+            transition: background 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
         
         /* 头部样式 */
         header {
-            background-color: rgba(44, 62, 80, 0.95);
-            color: white;
-            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
         }
         
         .logo-container {
@@ -54,81 +61,95 @@
             gap: 15px;
         }
         
-        .logo-img {
-            width: 70px;
-            height: 70px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
+        .logo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: var(--transition);
+            background-color: white;
         }
         
-        .logo-img:hover {
+        .logo:hover {
             transform: scale(1.05);
+            box-shadow: var(--box-shadow);
         }
         
-        .logo-text h1 {
-            font-size: 1.8rem;
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-placeholder {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
             font-weight: 700;
-            letter-spacing: 1px;
         }
         
-        .logo-text p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-        
-        /* 导航标签样式 */
+        /* 标签页导航 */
         .tabs {
             display: flex;
-            gap: 5px;
             flex-wrap: wrap;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
         }
         
         .tab {
-            padding: 12px 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
+            flex: 1;
+            min-width: 120px;
+            padding: 18px 10px;
+            text-align: center;
             cursor: pointer;
-            border-radius: 6px 6px 0 0;
             font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            border-bottom: 4px solid transparent;
+            transition: var(--transition);
+            position: relative;
         }
         
         .tab:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(44, 62, 80, 0.05);
         }
         
         .tab.active {
-            background-color: var(--light-color);
-            color: var(--primary-color);
+            color: var(--secondary-color);
+            border-bottom: 4px solid var(--secondary-color);
+            background-color: rgba(231, 76, 60, 0.05);
         }
         
-        /* 主要内容区域 */
-        .main-content {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .tab i {
+            margin-right: 8px;
         }
         
+        /* 标签页内容 */
         .tab-content {
             display: none;
-            background-color: rgba(255, 255, 255, 0.92);
-            border-radius: 12px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 30px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            min-height: 60vh;
+            min-height: 600px;
         }
         
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.5s ease;
         }
         
         @keyframes fadeIn {
@@ -136,117 +157,179 @@
             to { opacity: 1; }
         }
         
-        .tab-title {
-            font-size: 2rem;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 10px;
+        .content-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
         
-        .tab-title i {
-            color: var(--secondary-color);
+        .content-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
         }
         
-        /* 图片/视频显示区域 */
-        .image-grid, .video-grid {
+        /* 图片展示区域 */
+        .images-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
         
-        .media-item {
-            background-color: white;
-            border-radius: 10px;
+        .image-item {
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--box-shadow);
+            background-color: white;
+            transition: var(--transition);
         }
         
-        .media-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .media-img, .media-video {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
+        .image-wrapper {
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
             cursor: pointer;
-            display: block;
         }
         
-        .media-video {
-            height: 200px;
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
         }
         
-        .media-info {
-            padding: 15px;
+        .image-wrapper:hover img {
+            transform: scale(1.05);
         }
         
-        .media-title {
+        .image-info {
+            padding: 20px;
+        }
+        
+        .image-title {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 8px;
             color: var(--primary-color);
         }
         
-        .media-date {
-            font-size: 0.85rem;
+        .image-date {
             color: #777;
+            font-size: 0.9rem;
         }
         
-        /* 操作按钮区域 */
-        .actions {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        /* 视频展示区域 */
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
         
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
+        .video-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            background-color: white;
+        }
+        
+        .video-wrapper {
+            height: 200px;
+            overflow: hidden;
             display: flex;
             align-items: center;
+            justify-content: center;
+            background-color: #000;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             gap: 8px;
-            transition: all 0.3s;
         }
         
         .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-        
-        .btn-secondary {
-            background-color: #95a5a6;
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #7f8c8d;
-        }
-        
-        .btn-danger {
             background-color: var(--secondary-color);
             color: white;
         }
         
-        .btn-danger:hover {
+        .btn-primary:hover {
             background-color: #c0392b;
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(44, 62, 80, 0.1);
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+        
+        .btn-edit {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #d68910;
+        }
+        
+        /* 操作按钮容器 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
         }
         
         /* 弹窗样式 */
@@ -258,9 +341,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
+            z-index: 1000;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.3s ease;
         }
         
         .modal.active {
@@ -269,27 +353,31 @@
         
         .modal-content {
             background-color: white;
+            border-radius: var(--border-radius);
             width: 90%;
-            max-width: 600px;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-height: 85vh;
+            max-width: 700px;
+            max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
         }
         
-        .modal-title {
-            font-size: 1.5rem;
+        .modal-header h3 {
             color: var(--primary-color);
+            font-size: 1.5rem;
         }
         
         .close-modal {
@@ -298,583 +386,499 @@
             font-size: 1.8rem;
             cursor: pointer;
             color: #777;
-            line-height: 1;
+            transition: var(--transition);
         }
         
         .close-modal:hover {
             color: var(--secondary-color);
         }
         
-        /* 表单样式 */
+        .modal-body {
+            padding: 30px;
+        }
+        
         .form-group {
             margin-bottom: 20px;
         }
         
-        .form-label {
+        .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--primary-color);
         }
         
-        .form-input, .form-textarea, .form-file {
+        .form-control {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
             font-size: 1rem;
+            transition: var(--transition);
         }
         
-        .form-input:focus, .form-textarea:focus {
+        .form-control:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
         
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
+        .password-prompt {
+            text-align: center;
+            padding: 30px;
         }
         
-        .password-input {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #777;
-            cursor: pointer;
-        }
-        
-        .file-info {
-            font-size: 0.85rem;
-            color: #777;
-            margin-top: 5px;
-        }
-        
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        /* 图片放大查看 */
-        .image-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 3000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .image-viewer.active {
-            display: flex;
-        }
-        
-        .image-viewer img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-        
-        .close-viewer {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-        }
-        
-        /* 设置页面样式 */
-        .settings-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
-        .setting-section {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .setting-title {
-            font-size: 1.3rem;
+        .password-prompt h4 {
             margin-bottom: 20px;
             color: var(--primary-color);
+        }
+        
+        /* 图片查看弹窗 */
+        .image-modal .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            background-color: transparent;
+            box-shadow: none;
+        }
+        
+        .image-modal-content {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            height: 100%;
         }
         
-        .current-media {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .current-media img {
+        .image-modal-content img {
             max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
+            max-height: 90vh;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
-        /* 空状态提示 */
-        .empty-message {
+        /* 空状态 */
+        .empty-state {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #777;
-            font-size: 1.1rem;
         }
         
-        .empty-message i {
+        .empty-state i {
             font-size: 3rem;
             margin-bottom: 20px;
             color: #ddd;
         }
         
-        /* 响应式调整 */
-        @media (max-width: 992px) {
+        .empty-state p {
+            font-size: 1.2rem;
+        }
+        
+        /* 设置页面样式 */
+        .settings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .setting-section {
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .setting-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .current-file {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+        }
+        
+        .current-file img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        /* 文件上传区域 */
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .file-upload i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        /* 图片预览 */
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 120px;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-preview {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(231, 76, 60, 0.8);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
             .tabs {
-                display: none;
+                flex-direction: column;
             }
             
-            .mobile-menu-btn {
-                display: block;
+            .tab {
+                width: 100%;
+                border-bottom: 1px solid #eee;
+                border-left: 4px solid transparent;
+            }
+            
+            .tab.active {
+                border-left: 4px solid var(--secondary-color);
+                border-bottom: 1px solid #eee;
+            }
+            
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .images-container, .videos-container {
+                grid-template-columns: 1fr;
             }
             
             .settings-container {
                 grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .logo-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .tab-content {
-                padding: 20px 15px;
-            }
-            
-            .image-grid, .video-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* 管理按钮 */
-        .manage-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .manage-btn {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-        
-        /* 密码验证提示 */
-        .password-prompt {
-            text-align: center;
-            font-style: italic;
-            color: #777;
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
-    <!-- 头部和导航 -->
-    <header>
-        <div class="logo-container">
-            <img src="" alt="利克健身集团LOGO" class="logo-img" id="site-logo">
-            <div class="logo-text">
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo" id="siteLogo">
+                    <div class="logo-placeholder">点击上传LOGO</div>
+                </div>
                 <h1>利克健身集团</h1>
-                <p>LIKER FITNESS GROUP</p>
+            </div>
+        </header>
+        
+        <nav class="tabs" id="mainTabs">
+            <div class="tab active" data-tab="announcement">
+                <i class="fas fa-bullhorn"></i>公告
+            </div>
+            <div class="tab" data-tab="brand">
+                <i class="fas fa-building"></i>品牌介绍
+            </div>
+            <div class="tab" data-tab="stores">
+                <i class="fas fa-map-marker-alt"></i>门店清单
+            </div>
+            <div class="tab" data-tab="coaches">
+                <i class="fas fa-users"></i>教练介绍
+            </div>
+            <div class="tab" data-tab="media">
+                <i class="fas fa-photo-video"></i>图片和视频
+            </div>
+            <div class="tab" data-tab="settings">
+                <i class="fas fa-cog"></i>设置
+            </div>
+            <div class="tab" data-tab="poke">
+                <i class="fas fa-hand-pointer"></i>戳戳我
+            </div>
+        </nav>
+        
+        <!-- 公告标签页 -->
+        <div class="tab-content active" id="announcement">
+            <div class="content-header">
+                <h2><i class="fas fa-bullhorn"></i> 公告</h2>
+                <button class="btn btn-primary" id="addAnnouncementBtn">
+                    <i class="fas fa-plus"></i> 添加公告
+                </button>
+            </div>
+            <div class="images-container" id="announcementContainer">
+                <!-- 公告内容将通过JS动态加载 -->
             </div>
         </div>
         
-        <nav class="tabs">
-            <button class="tab active" data-tab="announcement">
-                <i class="fas fa-bullhorn"></i> 公告
-            </button>
-            <button class="tab" data-tab="brand">
-                <i class="fas fa-building"></i> 品牌介绍
-            </button>
-            <button class="tab" data-tab="stores">
-                <i class="fas fa-store"></i> 门店清单
-            </button>
-            <button class="tab" data-tab="coaches">
-                <i class="fas fa-dumbbell"></i> 教练介绍
-            </button>
-            <button class="tab" data-tab="media">
-                <i class="fas fa-photo-video"></i> 图片和视频
-            </button>
-            <button class="tab" data-tab="settings">
-                <i class="fas fa-cog"></i> 设置
-            </button>
-            <button class="tab" data-tab="contact">
-                <i class="fas fa-envelope"></i> 戳戳我
-            </button>
-        </nav>
-    </header>
-    
-    <!-- 主要内容区域 -->
-    <main class="main-content">
-        <!-- 公告标签页 -->
-        <section class="tab-content active" id="announcement">
-            <h2 class="tab-title"><i class="fas fa-bullhorn"></i> 集团公告</h2>
-            <div class="image-grid" id="announcement-grid">
-                <!-- 公告图片将通过JS动态添加 -->
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-announcement">
-                    <i class="fas fa-plus-circle"></i> 添加公告
-                </button>
-            </div>
-        </section>
-        
         <!-- 品牌介绍标签页 -->
-        <section class="tab-content" id="brand">
-            <h2 class="tab-title"><i class="fas fa-building"></i> 品牌介绍</h2>
-            <div class="image-grid" id="brand-grid">
-                <!-- 品牌介绍图片将通过JS动态添加 -->
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-brand">
-                    <i class="fas fa-plus-circle"></i> 添加品牌介绍
+        <div class="tab-content" id="brand">
+            <div class="content-header">
+                <h2><i class="fas fa-building"></i> 品牌介绍</h2>
+                <button class="btn btn-primary" id="addBrandBtn">
+                    <i class="fas fa-plus"></i> 添加品牌介绍
                 </button>
             </div>
-        </section>
+            <div class="images-container" id="brandContainer">
+                <!-- 品牌介绍内容将通过JS动态加载 -->
+            </div>
+        </div>
         
         <!-- 门店清单标签页 -->
-        <section class="tab-content" id="stores">
-            <h2 class="tab-title"><i class="fas fa-store"></i> 门店清单</h2>
-            <div class="image-grid" id="stores-grid">
-                <!-- 门店图片将通过JS动态添加 -->
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-store">
-                    <i class="fas fa-plus-circle"></i> 添加门店
+        <div class="tab-content" id="stores">
+            <div class="content-header">
+                <h2><i class="fas fa-map-marker-alt"></i> 门店清单</h2>
+                <button class="btn btn-primary" id="addStoreBtn">
+                    <i class="fas fa-plus"></i> 添加门店
                 </button>
             </div>
-        </section>
+            <div class="images-container" id="storesContainer">
+                <!-- 门店清单内容将通过JS动态加载 -->
+            </div>
+        </div>
         
         <!-- 教练介绍标签页 -->
-        <section class="tab-content" id="coaches">
-            <h2 class="tab-title"><i class="fas fa-dumbbell"></i> 教练介绍</h2>
-            <div class="image-grid" id="coaches-grid">
-                <!-- 教练图片将通过JS动态添加 -->
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-coach">
-                    <i class="fas fa-plus-circle"></i> 添加教练
+        <div class="tab-content" id="coaches">
+            <div class="content-header">
+                <h2><i class="fas fa-users"></i> 教练介绍</h2>
+                <button class="btn btn-primary" id="addCoachBtn">
+                    <i class="fas fa-plus"></i> 添加教练
                 </button>
             </div>
-        </section>
+            <div class="images-container" id="coachesContainer">
+                <!-- 教练介绍内容将通过JS动态加载 -->
+            </div>
+        </div>
         
         <!-- 图片和视频标签页 -->
-        <section class="tab-content" id="media">
-            <h2 class="tab-title"><i class="fas fa-photo-video"></i> 图片和视频</h2>
-            
-            <h3 style="margin: 25px 0 15px; color: var(--primary-color);">
-                <i class="fas fa-images"></i> 图片库
-            </h3>
-            <div class="image-grid" id="images-grid">
-                <!-- 图片将通过JS动态添加 -->
+        <div class="tab-content" id="media">
+            <div class="content-header">
+                <h2><i class="fas fa-photo-video"></i> 图片和视频</h2>
             </div>
             
-            <div class="actions">
-                <button class="btn btn-primary" id="add-image">
-                    <i class="fas fa-plus-circle"></i> 添加图片
+            <h3 style="margin-bottom: 20px; color: var(--primary-color);">图片</h3>
+            <div class="images-container" id="imagesContainer">
+                <!-- 图片内容将通过JS动态加载 -->
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="addImageBtn">
+                    <i class="fas fa-plus"></i> 添加图片
                 </button>
             </div>
             
-            <h3 style="margin: 40px 0 15px; color: var(--primary-color);">
-                <i class="fas fa-video"></i> 视频库
-            </h3>
-            <div class="video-grid" id="videos-grid">
-                <!-- 视频将通过JS动态添加 -->
+            <h3 style="margin: 40px 0 20px; color: var(--primary-color);">视频</h3>
+            <div class="videos-container" id="videosContainer">
+                <!-- 视频内容将通过JS动态加载 -->
             </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-video">
-                    <i class="fas fa-plus-circle"></i> 添加视频
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="addVideoBtn">
+                    <i class="fas fa-plus"></i> 添加视频
                 </button>
             </div>
-        </section>
+        </div>
         
         <!-- 设置标签页 -->
-        <section class="tab-content" id="settings">
-            <h2 class="tab-title"><i class="fas fa-cog"></i> 系统设置</h2>
+        <div class="tab-content" id="settings">
+            <div class="content-header">
+                <h2><i class="fas fa-cog"></i> 设置</h2>
+            </div>
             
             <div class="settings-container">
                 <div class="setting-section">
-                    <h3 class="setting-title"><i class="fas fa-image"></i> LOGO设置</h3>
-                    <p>支持格式：JPG、JPEG、PNG</p>
-                    <p>建议尺寸：75cm × 75cm</p>
-                    
-                    <div class="current-media">
-                        <p><strong>当前LOGO：</strong></p>
-                        <img src="" alt="当前LOGO" id="current-logo">
-                        <p class="empty-message" id="no-logo-msg">暂无LOGO</p>
+                    <h3>LOGO设置</h3>
+                    <div class="current-file" id="currentLogo">
+                        <div>当前LOGO: 未设置</div>
                     </div>
-                    
-                    <div class="actions">
-                        <button class="btn btn-primary" id="upload-logo">
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="uploadLogoBtn">
                             <i class="fas fa-upload"></i> 上传LOGO
                         </button>
-                        <button class="btn btn-secondary" id="change-logo" disabled>
+                        <button class="btn btn-edit" id="changeLogoBtn" disabled>
                             <i class="fas fa-edit"></i> 修改LOGO
                         </button>
-                        <button class="btn btn-danger" id="delete-logo" disabled>
+                        <button class="btn btn-delete" id="deleteLogoBtn" disabled>
                             <i class="fas fa-trash"></i> 删除LOGO
                         </button>
                     </div>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">
+                        支持格式: JPG, JPEG, PNG<br>
+                        建议尺寸: 75px × 75px
+                    </p>
                 </div>
                 
                 <div class="setting-section">
-                    <h3 class="setting-title"><i class="fas fa-paint-roller"></i> 背景设置</h3>
-                    <p>支持格式：JPG、JPEG、PNG</p>
-                    <p>背景将覆盖整个网页</p>
-                    
-                    <div class="current-media">
-                        <p><strong>当前背景：</strong></p>
-                        <img src="" alt="当前背景" id="current-background">
-                        <p class="empty-message" id="no-bg-msg">暂无背景</p>
+                    <h3>背景设置</h3>
+                    <div class="current-file" id="currentBackground">
+                        <div>当前背景: 未设置</div>
                     </div>
-                    
-                    <div class="actions">
-                        <button class="btn btn-primary" id="upload-background">
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="uploadBgBtn">
                             <i class="fas fa-upload"></i> 上传背景
                         </button>
-                        <button class="btn btn-secondary" id="change-background" disabled>
+                        <button class="btn btn-edit" id="changeBgBtn" disabled>
                             <i class="fas fa-edit"></i> 修改背景
                         </button>
-                        <button class="btn btn-danger" id="delete-background" disabled>
+                        <button class="btn btn-delete" id="deleteBgBtn" disabled>
                             <i class="fas fa-trash"></i> 删除背景
                         </button>
                     </div>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">
+                        支持格式: JPG, JPEG, PNG
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
         
         <!-- 戳戳我标签页 -->
-        <section class="tab-content" id="contact">
-            <h2 class="tab-title"><i class="fas fa-envelope"></i> 戳戳我</h2>
-            <div class="image-grid" id="contact-grid">
-                <!-- 戳戳我图片将通过JS动态添加 -->
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" id="add-contact">
-                    <i class="fas fa-plus-circle"></i> 添加
+        <div class="tab-content" id="poke">
+            <div class="content-header">
+                <h2><i class="fas fa-hand-pointer"></i> 戳戳我</h2>
+                <button class="btn btn-primary" id="addPokeBtn">
+                    <i class="fas fa-plus"></i> 添加内容
                 </button>
             </div>
-        </section>
-    </main>
-    
-    <!-- 图片放大查看器 -->
-    <div class="image-viewer" id="image-viewer">
-        <button class="close-viewer">&times;</button>
-        <img src="" alt="放大查看的图片" id="viewer-img">
-    </div>
-    
-    <!-- 通用弹窗 -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">弹窗标题</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="modal-form">
-                    <!-- 表单内容将通过JS动态生成 -->
-                </form>
+            <div class="images-container" id="pokeContainer">
+                <!-- 戳戳我内容将通过JS动态加载 -->
             </div>
         </div>
     </div>
     
-    <!-- 密码验证弹窗 -->
-    <div class="modal" id="password-modal">
+    <!-- 通用弹窗（用于添加/编辑内容） -->
+    <div class="modal" id="mainModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">请输入管理密码</h3>
-                <button class="close-modal">&times;</button>
+                <h3 id="modalTitle">添加内容</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="password-form">
-                    <div class="form-group password-input">
-                        <label for="password-input" class="form-label">管理密码</label>
-                        <input type="password" id="password-input" class="form-input" required>
-                        <button type="button" class="toggle-password" id="toggle-password">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <p class="password-prompt">请输入密码以继续操作</p>
+                <div id="passwordSection" class="password-prompt">
+                    <h4>请输入管理密码</h4>
+                    <div class="form-group">
+                        <input type="password" id="passwordInput" class="form-control" placeholder="请输入密码">
+                        <p id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">密码错误，请重试</p>
                     </div>
-                    <div class="modal-actions">
-                        <button type="submit" class="btn btn-primary">确认</button>
-                        <button type="button" class="btn btn-secondary" id="cancel-password">取消</button>
-                    </div>
-                </form>
+                    <button class="btn btn-primary" id="confirmPassword">确认</button>
+                </div>
+                
+                <div id="formSection" style="display: none;">
+                    <form id="dataForm">
+                        <div class="form-group">
+                            <label for="itemTitle">标题</label>
+                            <input type="text" id="itemTitle" class="form-control" placeholder="请输入标题">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label id="fileLabel">上传文件</label>
+                            <div class="file-upload" id="fileUploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>点击或拖拽文件到此处上传</p>
+                                <p id="fileRequirements" style="margin-top: 10px; font-size: 0.9rem;"></p>
+                            </div>
+                            <input type="file" id="fileInput" style="display: none;" accept="" multiple>
+                            
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>上传日期</label>
+                            <input type="text" id="uploadDate" class="form-control" readonly>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-outline" id="cancelForm">取消</button>
+                            <button type="submit" class="btn btn-primary" id="submitForm">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 图片查看弹窗 -->
+    <div class="modal image-modal" id="imageModal">
+        <div class="modal-content">
+            <div class="image-modal-content">
+                <img id="modalImage" src="" alt="">
             </div>
         </div>
     </div>
 
     <script>
         // 全局变量
-        const PASSWORD = "740302"; // 管理密码
-        let currentTab = "announcement"; // 当前激活的标签页
-        let currentAction = ""; // 当前操作类型
-        let currentDataType = ""; // 当前操作的数据类型
-        let editingIndex = -1; // 当前编辑的数据索引
-        let isAuthenticated = false; // 是否已通过密码验证
+        const DEFAULT_PASSWORD = "740302";
+        let currentTab = "announcement";
+        let currentModalType = "";
+        let editingItemId = null;
+        let uploadedFiles = [];
         
-        // 数据存储结构
-        let appData = {
-            announcement: [], // 公告数据
-            brand: [], // 品牌介绍数据
-            stores: [], // 门店数据
-            coaches: [], // 教练数据
-            images: [], // 图片数据
-            videos: [], // 视频数据
-            contact: [], // 戳戳我数据
-            logo: "", // 网站LOGO
-            background: "" // 网站背景
+        // 数据存储键名
+        const STORAGE_KEYS = {
+            ANNOUNCEMENT: 'lik_gym_announcement',
+            BRAND: 'lik_gym_brand',
+            STORES: 'lik_gym_stores',
+            COACHES: 'lik_gym_coaches',
+            IMAGES: 'lik_gym_images',
+            VIDEOS: 'lik_gym_videos',
+            SETTINGS: 'lik_gym_settings',
+            POKE: 'lik_gym_poke',
+            ACTIVE_TAB: 'lik_gym_active_tab'
         };
-        
-        // DOM元素
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const modal = document.getElementById('modal');
-        const passwordModal = document.getElementById('password-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalForm = document.getElementById('modal-form');
-        const passwordForm = document.getElementById('password-form');
-        const passwordInput = document.getElementById('password-input');
-        const togglePasswordBtn = document.getElementById('toggle-password');
-        const closeModalBtns = document.querySelectorAll('.close-modal');
-        const cancelPasswordBtn = document.getElementById('cancel-password');
-        const imageViewer = document.getElementById('image-viewer');
-        const viewerImg = document.getElementById('viewer-img');
-        const closeViewerBtn = document.querySelector('.close-viewer');
-        const siteLogo = document.getElementById('site-logo');
-        const currentLogo = document.getElementById('current-logo');
-        const currentBackground = document.getElementById('current-background');
-        const noLogoMsg = document.getElementById('no-logo-msg');
-        const noBgMsg = document.getElementById('no-bg-msg');
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 从localStorage加载数据
-            loadData();
+            // 恢复之前的标签页状态
+            const savedTab = localStorage.getItem(STORAGE_KEYS.ACTIVE_TAB) || 'announcement';
+            switchTab(savedTab);
             
-            // 设置标签页切换事件
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    switchTab(tabId);
-                    
-                    // 保存当前标签到localStorage
-                    localStorage.setItem('currentTab', tabId);
-                });
-            });
+            // 加载所有数据
+            loadAllData();
             
-            // 设置添加按钮事件
-            document.getElementById('add-announcement').addEventListener('click', () => openAddModal('announcement'));
-            document.getElementById('add-brand').addEventListener('click', () => openAddModal('brand'));
-            document.getElementById('add-store').addEventListener('click', () => openAddModal('stores'));
-            document.getElementById('add-coach').addEventListener('click', () => openAddModal('coaches'));
-            document.getElementById('add-image').addEventListener('click', () => openAddModal('images'));
-            document.getElementById('add-video').addEventListener('click', () => openAddModal('videos'));
-            document.getElementById('add-contact').addEventListener('click', () => openAddModal('contact'));
-            
-            // 设置页面按钮事件
-            document.getElementById('upload-logo').addEventListener('click', () => openSettingsModal('logo', 'upload'));
-            document.getElementById('change-logo').addEventListener('click', () => openSettingsModal('logo', 'change'));
-            document.getElementById('delete-logo').addEventListener('click', () => deleteSettingsItem('logo'));
-            document.getElementById('upload-background').addEventListener('click', () => openSettingsModal('background', 'upload'));
-            document.getElementById('change-background').addEventListener('click', () => openSettingsModal('background', 'change'));
-            document.getElementById('delete-background').addEventListener('click', () => deleteSettingsItem('background'));
-            
-            // 关闭弹窗事件
-            closeModalBtns.forEach(btn => {
-                btn.addEventListener('click', closeModal);
-            });
-            
-            // 关闭图片查看器事件
-            closeViewerBtn.addEventListener('click', closeImageViewer);
-            
-            // 密码表单提交事件
-            passwordForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                checkPassword();
-            });
-            
-            // 取消密码验证
-            cancelPasswordBtn.addEventListener('click', function() {
-                closeModal();
-                isAuthenticated = false;
-            });
-            
-            // 切换密码可见性
-            togglePasswordBtn.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type');
-                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            });
-            
-            // 点击背景关闭弹窗
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-            
-            passwordModal.addEventListener('click', function(e) {
-                if (e.target === passwordModal) {
-                    closeModal();
-                }
-            });
-            
-            imageViewer.addEventListener('click', function(e) {
-                if (e.target === imageViewer) {
-                    closeImageViewer();
-                }
-            });
-            
-            // 恢复上次查看的标签页
-            const savedTab = localStorage.getItem('currentTab');
-            if (savedTab) {
-                switchTab(savedTab);
-            }
-            
-            // 初始化显示
-            renderAllData();
+            // 设置事件监听器
+            setupEventListeners();
         });
         
         // 切换标签页
@@ -882,565 +886,629 @@
             // 更新当前标签
             currentTab = tabId;
             
-            // 更新标签按钮状态
-            tabs.forEach(tab => {
-                if (tab.getAttribute('data-tab') === tabId) {
+            // 保存当前标签页
+            localStorage.setItem(STORAGE_KEYS.ACTIVE_TAB, tabId);
+            
+            // 更新标签样式
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabId) {
                     tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
                 }
             });
             
-            // 更新内容区域状态
-            tabContents.forEach(content => {
+            // 更新内容显示
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
                 if (content.id === tabId) {
                     content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
                 }
             });
         }
         
-        // 打开添加/编辑模态框
-        function openAddModal(dataType, index = -1) {
-            // 重置认证状态
-            isAuthenticated = false;
+        // 加载所有数据
+        function loadAllData() {
+            loadTabData('announcement');
+            loadTabData('brand');
+            loadTabData('stores');
+            loadTabData('coaches');
+            loadTabData('images');
+            loadTabData('videos');
+            loadTabData('poke');
+            loadSettings();
+        }
+        
+        // 加载标签页数据
+        function loadTabData(tabType) {
+            const containerId = tabType === 'images' || tabType === 'videos' ? `${tabType}Container` : `${tabType}Container`;
+            const container = document.getElementById(containerId);
+            if (!container) return;
             
-            // 设置当前操作类型和数据
-            currentDataType = dataType;
-            editingIndex = index;
+            const storageKey = getStorageKey(tabType);
+            const data = JSON.parse(localStorage.getItem(storageKey)) || [];
             
-            // 根据数据类型设置弹窗标题
-            const typeNames = {
-                announcement: '公告',
-                brand: '品牌介绍',
-                stores: '门店清单',
-                coaches: '教练介绍',
-                images: '图片',
-                videos: '视频',
-                contact: '戳戳我'
-            };
+            // 清空容器
+            container.innerHTML = '';
             
-            if (index === -1) {
-                currentAction = 'add';
-                modalTitle.textContent = `添加${typeNames[dataType]}`;
-            } else {
-                currentAction = 'edit';
-                modalTitle.textContent = `修改${typeNames[dataType]}`;
-            }
-            
-            // 生成表单HTML
-            let formHTML = '';
-            
-            if (dataType === 'videos') {
-                formHTML = `
-                    <div class="form-group">
-                        <label for="title" class="form-label">标题</label>
-                        <input type="text" id="title" class="form-input" placeholder="请输入视频标题" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="file" class="form-label">选择视频文件</label>
-                        <input type="file" id="file" class="form-file" accept=".mp4,.mov" required>
-                        <p class="file-info">支持格式：MP4, MOV，单个视频上限为200MB</p>
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-${getTabIcon(tabType)}"></i>
+                        <p>暂无内容，点击上方按钮添加</p>
                     </div>
                 `;
-            } else {
-                formHTML = `
-                    <div class="form-group">
-                        <label for="title" class="form-label">标题</label>
-                        <input type="text" id="title" class="form-input" placeholder="请输入标题" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="file" class="form-label">选择图片文件</label>
-                        <input type="file" id="file" class="form-file" accept=".jpg,.jpeg,.png" ${dataType === 'images' ? '' : 'multiple'} required>
-                        <p class="file-info">支持格式：JPG, JPEG, PNG${dataType === 'images' ? '，不限制数量' : '，上限为5张图片'}</p>
-                    </div>
+                return;
+            }
+            
+            // 根据标签页类型渲染内容
+            data.forEach((item, index) => {
+                if (tabType === 'videos') {
+                    // 视频项
+                    const videoItem = document.createElement('div');
+                    videoItem.className = 'video-item';
+                    videoItem.innerHTML = `
+                        <div class="video-wrapper">
+                            <video controls>
+                                <source src="${item.fileData}" type="video/mp4">
+                                您的浏览器不支持视频播放
+                            </video>
+                        </div>
+                        <div class="image-info">
+                            <div class="image-title">${item.title}</div>
+                            <div class="image-date">${item.date}</div>
+                            <div class="action-buttons" style="margin-top: 10px; display: none;" data-item-id="${index}">
+                                <button class="btn btn-edit btn-small edit-item-btn"><i class="fas fa-edit"></i> 修改</button>
+                                <button class="btn btn-delete btn-small delete-item-btn"><i class="fas fa-trash"></i> 删除</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(videoItem);
+                } else {
+                    // 图片项
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'image-item';
+                    imageItem.innerHTML = `
+                        <div class="image-wrapper" data-image="${item.fileData}">
+                            <img src="${item.fileData}" alt="${item.title}">
+                        </div>
+                        <div class="image-info">
+                            <div class="image-title">${item.title}</div>
+                            <div class="image-date">${item.date}</div>
+                            <div class="action-buttons" style="margin-top: 10px; display: none;" data-item-id="${index}">
+                                <button class="btn btn-edit btn-small edit-item-btn"><i class="fas fa-edit"></i> 修改</button>
+                                <button class="btn btn-delete btn-small delete-item-btn"><i class="fas fa-trash"></i> 删除</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(imageItem);
+                }
+            });
+            
+            // 添加图片点击放大功能
+            if (tabType !== 'videos') {
+                container.querySelectorAll('.image-wrapper').forEach(wrapper => {
+                    wrapper.addEventListener('click', function() {
+                        const imageSrc = this.getAttribute('data-image');
+                        if (imageSrc) {
+                            document.getElementById('modalImage').src = imageSrc;
+                            document.getElementById('imageModal').classList.add('active');
+                        }
+                    });
+                });
+            }
+        }
+        
+        // 加载设置
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS)) || {};
+            
+            // 加载LOGO
+            if (settings.logo) {
+                const logoContainer = document.getElementById('currentLogo');
+                logoContainer.innerHTML = `
+                    <img src="${settings.logo.fileData}" alt="LOGO" style="cursor: pointer;" onclick="viewImage('${settings.logo.fileData}')">
+                    <div>当前LOGO: ${settings.logo.title}</div>
                 `;
+                
+                // 更新页面LOGO
+                const siteLogo = document.getElementById('siteLogo');
+                siteLogo.innerHTML = `<img src="${settings.logo.fileData}" alt="LOGO">`;
+                siteLogo.onclick = () => viewImage(settings.logo.fileData);
+                
+                // 启用修改和删除按钮
+                document.getElementById('changeLogoBtn').disabled = false;
+                document.getElementById('deleteLogoBtn').disabled = false;
             }
             
-            // 如果是编辑模式，填充现有数据
-            if (index !== -1) {
-                setTimeout(() => {
-                    const item = appData[dataType][index];
-                    document.getElementById('title').value = item.title || '';
-                }, 100);
+            // 加载背景
+            if (settings.background) {
+                const bgContainer = document.getElementById('currentBackground');
+                bgContainer.innerHTML = `
+                    <img src="${settings.background.fileData}" alt="背景" style="cursor: pointer;" onclick="viewImage('${settings.background.fileData}')">
+                    <div>当前背景: ${settings.background.title}</div>
+                `;
+                
+                // 更新页面背景
+                document.body.style.backgroundImage = `url('${settings.background.fileData}')`;
+                
+                // 启用修改和删除按钮
+                document.getElementById('changeBgBtn').disabled = false;
+                document.getElementById('deleteBgBtn').disabled = false;
+            }
+        }
+        
+        // 获取存储键名
+        function getStorageKey(tabType) {
+            switch(tabType) {
+                case 'announcement': return STORAGE_KEYS.ANNOUNCEMENT;
+                case 'brand': return STORAGE_KEYS.BRAND;
+                case 'stores': return STORAGE_KEYS.STORES;
+                case 'coaches': return STORAGE_KEYS.COACHES;
+                case 'images': return STORAGE_KEYS.IMAGES;
+                case 'videos': return STORAGE_KEYS.VIDEOS;
+                case 'poke': return STORAGE_KEYS.POKE;
+                default: return null;
+            }
+        }
+        
+        // 获取标签页图标
+        function getTabIcon(tabType) {
+            switch(tabType) {
+                case 'announcement': return 'bullhorn';
+                case 'brand': return 'building';
+                case 'stores': return 'map-marker-alt';
+                case 'coaches': return 'users';
+                case 'images': return 'image';
+                case 'videos': return 'video';
+                case 'poke': return 'hand-pointer';
+                default: return 'file';
+            }
+        }
+        
+        // 显示管理弹窗
+        function showModal(type, editIndex = null) {
+            currentModalType = type;
+            editingItemId = editIndex;
+            
+            // 设置弹窗标题
+            const modalTitle = document.getElementById('modalTitle');
+            const fileLabel = document.getElementById('fileLabel');
+            const fileRequirements = document.getElementById('fileRequirements');
+            
+            let title = '';
+            let label = '';
+            let requirements = '';
+            
+            switch(type) {
+                case 'announcement':
+                    title = editIndex !== null ? '修改公告' : '添加公告';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (最多5张图片)';
+                    break;
+                case 'brand':
+                    title = editIndex !== null ? '修改品牌介绍' : '添加品牌介绍';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (最多5张图片)';
+                    break;
+                case 'stores':
+                    title = editIndex !== null ? '修改门店' : '添加门店';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (最多5张图片)';
+                    break;
+                case 'coaches':
+                    title = editIndex !== null ? '修改教练介绍' : '添加教练介绍';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (最多5张图片)';
+                    break;
+                case 'images':
+                    title = editIndex !== null ? '修改图片' : '添加图片';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (不限制数量)';
+                    break;
+                case 'videos':
+                    title = editIndex !== null ? '修改视频' : '添加视频';
+                    label = '上传视频';
+                    requirements = '支持格式: MP4, MOV (单个视频上限200MB，不限制数量)';
+                    break;
+                case 'poke':
+                    title = editIndex !== null ? '修改戳戳我内容' : '添加戳戳我内容';
+                    label = '上传图片';
+                    requirements = '支持格式: JPG, JPEG, PNG';
+                    break;
+                case 'logo':
+                    title = editIndex !== null ? '修改LOGO' : '上传LOGO';
+                    label = '上传LOGO图片';
+                    requirements = '支持格式: JPG, JPEG, PNG (建议尺寸: 75px × 75px)';
+                    break;
+                case 'background':
+                    title = editIndex !== null ? '修改背景' : '上传背景';
+                    label = '上传背景图片';
+                    requirements = '支持格式: JPG, JPEG, PNG';
+                    break;
             }
             
-            modalForm.innerHTML = formHTML + `
-                <div class="modal-actions">
-                    <button type="submit" class="btn btn-primary">保存</button>
-                    <button type="button" class="btn btn-secondary" id="cancel-form">取消</button>
-                </div>
-            `;
+            modalTitle.textContent = title;
+            fileLabel.textContent = label;
+            fileRequirements.textContent = requirements;
             
-            // 添加表单提交事件
-            modalForm.onsubmit = function(e) {
-                e.preventDefault();
-                saveData();
-            };
-            
-            // 取消按钮事件
-            document.getElementById('cancel-form').addEventListener('click', closeModal);
-            
-            // 显示密码验证弹窗
-            passwordModal.classList.add('active');
-        }
-        
-        // 打开设置模态框
-        function openSettingsModal(settingType, action) {
-            // 重置认证状态
-            isAuthenticated = false;
-            
-            // 设置当前操作类型和数据
-            currentDataType = settingType;
-            currentAction = action;
-            
-            // 根据设置类型设置弹窗标题
-            const typeNames = {
-                logo: 'LOGO',
-                background: '背景'
-            };
-            
-            modalTitle.textContent = `${action === 'upload' ? '上传' : '修改'}${typeNames[settingType]}`;
-            
-            // 生成表单HTML
-            modalForm.innerHTML = `
-                <div class="form-group">
-                    <label for="file" class="form-label">选择${typeNames[settingType]}文件</label>
-                    <input type="file" id="file" class="form-file" accept=".jpg,.jpeg,.png" required>
-                    <p class="file-info">支持格式：JPG, JPEG, PNG${settingType === 'logo' ? '，建议尺寸：75cm × 75cm' : ''}</p>
-                </div>
-                <div class="modal-actions">
-                    <button type="submit" class="btn btn-primary">保存</button>
-                    <button type="button" class="btn btn-secondary" id="cancel-form">取消</button>
-                </div>
-            `;
-            
-            // 添加表单提交事件
-            modalForm.onsubmit = function(e) {
-                e.preventDefault();
-                saveSettings();
-            };
-            
-            // 取消按钮事件
-            document.getElementById('cancel-form').addEventListener('click', closeModal);
-            
-            // 显示密码验证弹窗
-            passwordModal.classList.add('active');
-        }
-        
-        // 检查密码
-        function checkPassword() {
-            if (passwordInput.value === PASSWORD) {
-                isAuthenticated = true;
-                passwordInput.value = '';
-                passwordModal.classList.remove('active');
-                modal.classList.add('active');
+            // 设置文件输入接受类型
+            const fileInput = document.getElementById('fileInput');
+            if (type === 'videos') {
+                fileInput.accept = '.mp4,.mov,.MP4,.MOV';
+                fileInput.multiple = false;
             } else {
-                alert('密码错误，请重新输入！');
-                passwordInput.value = '';
-                passwordInput.focus();
+                fileInput.accept = '.jpg,.jpeg,.png,.JPG,.JPEG,.PNG';
+                fileInput.multiple = (type === 'images') ? true : (type === 'logo' || type === 'background') ? false : true;
             }
+            
+            // 重置表单
+            resetForm();
+            
+            // 如果是编辑模式，填充表单
+            if (editIndex !== null) {
+                const storageKey = getStorageKey(type) || (type === 'logo' || type === 'background' ? STORAGE_KEYS.SETTINGS : null);
+                if (storageKey) {
+                    const data = JSON.parse(localStorage.getItem(storageKey));
+                    if (data) {
+                        let item;
+                        if (type === 'logo' || type === 'background') {
+                            item = data[type];
+                        } else {
+                            item = data[editIndex];
+                        }
+                        
+                        if (item) {
+                            document.getElementById('itemTitle').value = item.title;
+                            document.getElementById('uploadDate').value = item.date;
+                            
+                            // 显示预览
+                            if (item.fileData) {
+                                uploadedFiles = [{data: item.fileData, name: item.title}];
+                                showPreview();
+                            }
+                        }
+                    }
+                }
+            } else {
+                // 设置上传日期为当前时间
+                const now = new Date();
+                const formattedDate = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                document.getElementById('uploadDate').value = formattedDate;
+            }
+            
+            // 显示密码验证
+            document.getElementById('passwordSection').style.display = 'block';
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            
+            // 显示弹窗
+            document.getElementById('mainModal').classList.add('active');
         }
         
-        // 关闭所有弹窗
-        function closeModal() {
-            modal.classList.remove('active');
-            passwordModal.classList.remove('active');
-            isAuthenticated = false;
-            passwordInput.value = '';
+        // 重置表单
+        function resetForm() {
+            document.getElementById('dataForm').reset();
+            uploadedFiles = [];
+            document.getElementById('imagePreview').innerHTML = '';
+        }
+        
+        // 显示预览
+        function showPreview() {
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = '';
+            
+            uploadedFiles.forEach((file, index) => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                if (currentModalType === 'videos') {
+                    previewItem.innerHTML = `
+                        <video style="width: 100%; height: 100%; object-fit: cover;">
+                            <source src="${file.data}" type="video/mp4">
+                        </video>
+                        <div class="remove-preview" data-index="${index}">&times;</div>
+                    `;
+                } else {
+                    previewItem.innerHTML = `
+                        <img src="${file.data}" alt="预览">
+                        <div class="remove-preview" data-index="${index}">&times;</div>
+                    `;
+                }
+                
+                previewContainer.appendChild(previewItem);
+            });
         }
         
         // 保存数据
         function saveData() {
-            if (!isAuthenticated) {
-                alert('请先通过密码验证！');
+            const title = document.getElementById('itemTitle').value.trim();
+            const date = document.getElementById('uploadDate').value;
+            
+            if (!title) {
+                alert('请输入标题');
                 return;
             }
             
-            const title = document.getElementById('title').value;
-            const fileInput = document.getElementById('file');
-            
-            if (!title.trim()) {
-                alert('请输入标题！');
-                return;
-            }
-            
-            if (currentDataType !== 'videos' && fileInput.files.length === 0) {
-                alert('请选择文件！');
-                return;
-            }
-            
-            if (currentDataType === 'videos' && !fileInput.files[0]) {
-                alert('请选择视频文件！');
+            if (uploadedFiles.length === 0) {
+                alert('请上传文件');
                 return;
             }
             
             // 检查文件数量限制
-            if (currentDataType !== 'images' && currentDataType !== 'videos' && fileInput.files.length > 5) {
-                alert('最多只能上传5张图片！');
+            if (['announcement', 'brand', 'stores', 'coaches'].includes(currentModalType) && uploadedFiles.length > 5) {
+                alert('最多只能上传5张图片');
                 return;
             }
             
-            // 检查视频文件大小
-            if (currentDataType === 'videos') {
-                const videoFile = fileInput.files[0];
-                if (videoFile.size > 200 * 1024 * 1024) { // 200MB
-                    alert('视频文件大小不能超过200MB！');
-                    return;
-                }
-            }
+            const storageKey = getStorageKey(currentModalType);
             
-            // 生成上传日期
-            const now = new Date();
-            const uploadDate = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-            
-            // 处理文件
-            if (currentDataType === 'videos') {
-                // 处理视频
-                const videoFile = fileInput.files[0];
-                const reader = new FileReader();
+            if (storageKey) {
+                // 保存到对应标签页的数据
+                const data = JSON.parse(localStorage.getItem(storageKey)) || [];
                 
-                reader.onload = function(e) {
-                    const videoData = {
+                if (editingItemId !== null) {
+                    // 编辑模式
+                    data[editingItemId] = {
                         title: title,
-                        date: uploadDate,
-                        src: e.target.result,
-                        type: 'video'
+                        date: date,
+                        fileData: uploadedFiles[0].data
                     };
-                    
-                    if (currentAction === 'add') {
-                        appData[currentDataType].push(videoData);
-                    } else if (currentAction === 'edit') {
-                        appData[currentDataType][editingIndex] = videoData;
+                } else {
+                    // 添加模式
+                    // 对于图片和视频，可以上传多个文件
+                    if (currentModalType === 'images' || currentModalType === 'videos') {
+                        uploadedFiles.forEach(file => {
+                            data.push({
+                                title: title + (uploadedFiles.length > 1 ? ` (${uploadedFiles.indexOf(file) + 1})` : ''),
+                                date: date,
+                                fileData: file.data
+                            });
+                        });
+                    } else {
+                        // 其他标签页只上传一个文件
+                        data.push({
+                            title: title,
+                            date: date,
+                            fileData: uploadedFiles[0].data
+                        });
                     }
-                    
-                    saveToLocalStorage();
-                    renderData(currentDataType);
-                    closeModal();
+                }
+                
+                localStorage.setItem(storageKey, JSON.stringify(data));
+            } else if (currentModalType === 'logo' || currentModalType === 'background') {
+                // 保存设置
+                const settings = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS)) || {};
+                settings[currentModalType] = {
+                    title: title,
+                    date: date,
+                    fileData: uploadedFiles[0].data
                 };
                 
-                reader.readAsDataURL(videoFile);
+                localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+            }
+            
+            // 重新加载数据
+            if (currentModalType === 'logo' || currentModalType === 'background') {
+                loadSettings();
             } else {
-                // 处理图片
-                const files = Array.from(fileInput.files);
-                const readers = [];
-                
-                files.forEach(file => {
-                    const reader = new FileReader();
-                    readers.push(new Promise(resolve => {
-                        reader.onload = function(e) {
-                            resolve({
-                                title: title,
-                                date: uploadDate,
-                                src: e.target.result,
-                                type: 'image'
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    }));
+                loadTabData(currentModalType);
+            }
+            
+            // 关闭弹窗
+            closeModal();
+        }
+        
+        // 删除数据
+        function deleteData(type, index) {
+            if (!confirm('确定要删除此项吗？')) return;
+            
+            const storageKey = getStorageKey(type);
+            if (!storageKey) return;
+            
+            const data = JSON.parse(localStorage.getItem(storageKey)) || [];
+            data.splice(index, 1);
+            localStorage.setItem(storageKey, JSON.stringify(data));
+            
+            // 重新加载数据
+            loadTabData(type);
+        }
+        
+        // 删除LOGO或背景
+        function deleteSetting(type) {
+            if (!confirm(`确定要删除${type === 'logo' ? 'LOGO' : '背景'}吗？`)) return;
+            
+            const settings = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS)) || {};
+            delete settings[type];
+            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+            
+            // 重新加载设置
+            loadSettings();
+            
+            // 更新按钮状态
+            if (type === 'logo') {
+                document.getElementById('changeLogoBtn').disabled = true;
+                document.getElementById('deleteLogoBtn').disabled = true;
+                document.getElementById('siteLogo').innerHTML = '<div class="logo-placeholder">点击上传LOGO</div>';
+            } else {
+                document.getElementById('changeBgBtn').disabled = true;
+                document.getElementById('deleteBgBtn').disabled = true;
+                document.body.style.backgroundImage = '';
+            }
+        }
+        
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('mainModal').classList.remove('active');
+            resetForm();
+            currentModalType = '';
+            editingItemId = null;
+        }
+        
+        // 查看图片
+        function viewImage(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 标签页切换
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    switchTab(tabId);
                 });
-                
-                Promise.all(readers).then(results => {
-                    if (currentAction === 'add') {
-                        appData[currentDataType].push(...results);
-                    } else if (currentAction === 'edit') {
-                        // 编辑时只保留第一个图片
-                        appData[currentDataType][editingIndex] = results[0];
-                    }
-                    
-                    saveToLocalStorage();
-                    renderData(currentDataType);
-                    closeModal();
-                });
-            }
-        }
-        
-        // 保存设置
-        function saveSettings() {
-            if (!isAuthenticated) {
-                alert('请先通过密码验证！');
-                return;
-            }
+            });
             
-            const fileInput = document.getElementById('file');
+            // 添加按钮
+            document.getElementById('addAnnouncementBtn').addEventListener('click', () => showModal('announcement'));
+            document.getElementById('addBrandBtn').addEventListener('click', () => showModal('brand'));
+            document.getElementById('addStoreBtn').addEventListener('click', () => showModal('stores'));
+            document.getElementById('addCoachBtn').addEventListener('click', () => showModal('coaches'));
+            document.getElementById('addImageBtn').addEventListener('click', () => showModal('images'));
+            document.getElementById('addVideoBtn').addEventListener('click', () => showModal('videos'));
+            document.getElementById('addPokeBtn').addEventListener('click', () => showModal('poke'));
             
-            if (!fileInput.files[0]) {
-                alert('请选择文件！');
-                return;
-            }
+            // 设置按钮
+            document.getElementById('uploadLogoBtn').addEventListener('click', () => showModal('logo'));
+            document.getElementById('changeLogoBtn').addEventListener('click', () => showModal('logo', 0));
+            document.getElementById('deleteLogoBtn').addEventListener('click', () => deleteSetting('logo'));
+            document.getElementById('uploadBgBtn').addEventListener('click', () => showModal('background'));
+            document.getElementById('changeBgBtn').addEventListener('click', () => showModal('background', 0));
+            document.getElementById('deleteBgBtn').addEventListener('click', () => deleteSetting('background'));
             
-            const reader = new FileReader();
+            // 关闭弹窗
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('cancelForm').addEventListener('click', closeModal);
             
-            reader.onload = function(e) {
-                appData[currentDataType] = e.target.result;
-                saveToLocalStorage();
-                
-                // 更新显示
-                if (currentDataType === 'logo') {
-                    updateLogoDisplay();
-                } else if (currentDataType === 'background') {
-                    updateBackgroundDisplay();
-                }
-                
-                closeModal();
-            };
-            
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-        
-        // 删除设置项
-        function deleteSettingsItem(settingType) {
-            if (!confirm(`确定要删除当前${settingType === 'logo' ? 'LOGO' : '背景'}吗？`)) {
-                return;
-            }
-            
-            // 重置认证状态
-            isAuthenticated = false;
-            
-            // 显示密码验证弹窗
-            currentDataType = settingType;
-            passwordModal.classList.add('active');
-            
-            // 密码验证通过后执行删除
-            const originalSubmit = passwordForm.onsubmit;
-            passwordForm.onsubmit = function(e) {
-                e.preventDefault();
-                
-                if (passwordInput.value === PASSWORD) {
-                    isAuthenticated = true;
-                    passwordInput.value = '';
-                    passwordModal.classList.remove('active');
-                    
-                    appData[settingType] = "";
-                    saveToLocalStorage();
-                    
-                    if (settingType === 'logo') {
-                        updateLogoDisplay();
-                    } else if (settingType === 'background') {
-                        updateBackgroundDisplay();
-                    }
-                    
-                    // 恢复原提交事件
-                    passwordForm.onsubmit = originalSubmit;
-                } else {
-                    alert('密码错误，请重新输入！');
-                    passwordInput.value = '';
-                    passwordInput.focus();
-                }
-            };
-        }
-        
-        // 渲染数据
-        function renderData(dataType) {
-            const containerId = dataType === 'images' ? 'images-grid' : 
-                               dataType === 'videos' ? 'videos-grid' : 
-                               dataType === 'contact' ? 'contact-grid' :
-                               `${dataType}-grid`;
-            
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            const data = appData[dataType];
-            
-            if (data.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-message" style="grid-column: 1/-1;">
-                        <i class="fas fa-${dataType === 'videos' ? 'video-slash' : 'images'}"></i>
-                        <p>暂无${getDataTypeName(dataType)}，点击添加按钮上传</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            
-            data.forEach((item, index) => {
-                if (dataType === 'videos') {
-                    html += `
-                        <div class="media-item">
-                            <video class="media-video" controls>
-                                <source src="${item.src}" type="video/mp4">
-                                您的浏览器不支持视频播放
-                            </video>
-                            <div class="media-info">
-                                <div class="media-title">${item.title}</div>
-                                <div class="media-date">${item.date}</div>
-                                <div class="manage-buttons">
-                                    <button class="btn btn-secondary manage-btn" onclick="editItem('${dataType}', ${index})">
-                                        <i class="fas fa-edit"></i> 修改
-                                    </button>
-                                    <button class="btn btn-danger manage-btn" onclick="deleteItem('${dataType}', ${index})">
-                                        <i class="fas fa-trash"></i> 删除
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    html += `
-                        <div class="media-item">
-                            <img src="${item.src}" alt="${item.title}" class="media-img" onclick="openImageViewer('${item.src}')">
-                            <div class="media-info">
-                                <div class="media-title">${item.title}</div>
-                                <div class="media-date">${item.date}</div>
-                                <div class="manage-buttons">
-                                    <button class="btn btn-secondary manage-btn" onclick="editItem('${dataType}', ${index})">
-                                        <i class="fas fa-edit"></i> 修改
-                                    </button>
-                                    <button class="btn btn-danger manage-btn" onclick="deleteItem('${dataType}', ${index})">
-                                        <i class="fas fa-trash"></i> 删除
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+            // 图片查看弹窗关闭
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
                 }
             });
             
-            container.innerHTML = html;
+            // 密码验证
+            document.getElementById('confirmPassword').addEventListener('click', function() {
+                const password = document.getElementById('passwordInput').value;
+                if (password === DEFAULT_PASSWORD) {
+                    document.getElementById('passwordSection').style.display = 'none';
+                    document.getElementById('formSection').style.display = 'block';
+                } else {
+                    document.getElementById('passwordError').style.display = 'block';
+                }
+            });
+            
+            // 表单提交
+            document.getElementById('dataForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveData();
+            });
+            
+            // 文件上传
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileInput = document.getElementById('fileInput');
+            
+            fileUploadArea.addEventListener('click', () => fileInput.click());
+            
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = 'var(--accent-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+            });
+            
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = '';
+            });
+            
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length) {
+                    handleFiles(this.files);
+                }
+            });
+            
+            // 删除预览
+            document.getElementById('imagePreview').addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-preview')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    uploadedFiles.splice(index, 1);
+                    showPreview();
+                }
+            });
+            
+            // 全局点击事件委托，用于编辑和删除按钮
+            document.addEventListener('click', function(e) {
+                // 编辑按钮
+                if (e.target.closest('.edit-item-btn')) {
+                    const buttonsContainer = e.target.closest('.action-buttons');
+                    const itemId = parseInt(buttonsContainer.getAttribute('data-item-id'));
+                    const tabType = currentTab === 'media' ? 'images' : currentTab;
+                    showModal(tabType, itemId);
+                }
+                
+                // 删除按钮
+                if (e.target.closest('.delete-item-btn')) {
+                    const buttonsContainer = e.target.closest('.action-buttons');
+                    const itemId = parseInt(buttonsContainer.getAttribute('data-item-id'));
+                    const tabType = currentTab === 'media' ? 'images' : currentTab;
+                    deleteData(tabType, itemId);
+                }
+            });
         }
         
-        // 渲染所有数据
-        function renderAllData() {
-            renderData('announcement');
-            renderData('brand');
-            renderData('stores');
-            renderData('coaches');
-            renderData('images');
-            renderData('videos');
-            renderData('contact');
-            updateLogoDisplay();
-            updateBackgroundDisplay();
-        }
-        
-        // 获取数据类型名称
-        function getDataTypeName(dataType) {
-            const names = {
-                announcement: '公告',
-                brand: '品牌介绍',
-                stores: '门店清单',
-                coaches: '教练介绍',
-                images: '图片',
-                videos: '视频',
-                contact: '戳戳我'
-            };
-            return names[dataType] || '内容';
-        }
-        
-        // 编辑项目
-        function editItem(dataType, index) {
-            openAddModal(dataType, index);
-        }
-        
-        // 删除项目
-        function deleteItem(dataType, index) {
-            if (!confirm(`确定要删除这个${getDataTypeName(dataType)}吗？`)) {
+        // 处理文件上传
+        function handleFiles(files) {
+            const maxFiles = (currentModalType === 'images' || currentModalType === 'videos') ? Infinity : 5;
+            
+            // 检查文件数量
+            if (uploadedFiles.length + files.length > maxFiles) {
+                alert(`最多只能上传${maxFiles}个文件`);
                 return;
             }
             
-            // 重置认证状态
-            isAuthenticated = false;
-            
-            // 显示密码验证弹窗
-            currentDataType = dataType;
-            editingIndex = index;
-            passwordModal.classList.add('active');
-            
-            // 密码验证通过后执行删除
-            const originalSubmit = passwordForm.onsubmit;
-            passwordForm.onsubmit = function(e) {
-                e.preventDefault();
-                
-                if (passwordInput.value === PASSWORD) {
-                    isAuthenticated = true;
-                    passwordInput.value = '';
-                    passwordModal.classList.remove('active');
-                    
-                    appData[dataType].splice(index, 1);
-                    saveToLocalStorage();
-                    renderData(dataType);
-                    
-                    // 恢复原提交事件
-                    passwordForm.onsubmit = originalSubmit;
+            Array.from(files).forEach(file => {
+                // 检查文件类型
+                let isValid = false;
+                if (currentModalType === 'videos') {
+                    isValid = file.type.startsWith('video/') && (file.type === 'video/mp4' || file.type === 'video/quicktime');
                 } else {
-                    alert('密码错误，请重新输入！');
-                    passwordInput.value = '';
-                    passwordInput.focus();
+                    isValid = file.type.startsWith('image/') && (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png');
                 }
-            };
+                
+                if (!isValid) {
+                    alert(`文件 ${file.name} 格式不支持`);
+                    return;
+                }
+                
+                // 检查文件大小（视频限制200MB）
+                if (currentModalType === 'videos' && file.size > 200 * 1024 * 1024) {
+                    alert(`文件 ${file.name} 超过200MB限制`);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        data: e.target.result
+                    });
+                    showPreview();
+                };
+                reader.readAsDataURL(file);
+            });
         }
-        
-        // 更新LOGO显示
-        function updateLogoDisplay() {
-            if (appData.logo) {
-                siteLogo.src = appData.logo;
-                currentLogo.src = appData.logo;
-                currentLogo.style.display = 'block';
-                noLogoMsg.style.display = 'none';
-                document.getElementById('change-logo').disabled = false;
-                document.getElementById('delete-logo').disabled = false;
-            } else {
-                siteLogo.src = '';
-                currentLogo.src = '';
-                currentLogo.style.display = 'none';
-                noLogoMsg.style.display = 'block';
-                document.getElementById('change-logo').disabled = true;
-                document.getElementById('delete-logo').disabled = true;
-            }
-        }
-        
-        // 更新背景显示
-        function updateBackgroundDisplay() {
-            if (appData.background) {
-                document.body.style.backgroundImage = `url('${appData.background}')`;
-                currentBackground.src = appData.background;
-                currentBackground.style.display = 'block';
-                noBgMsg.style.display = 'none';
-                document.getElementById('change-background').disabled = false;
-                document.getElementById('delete-background').disabled = false;
-            } else {
-                document.body.style.backgroundImage = '';
-                currentBackground.src = '';
-                currentBackground.style.display = 'none';
-                noBgMsg.style.display = 'block';
-                document.getElementById('change-background').disabled = true;
-                document.getElementById('delete-background').disabled = true;
-            }
-        }
-        
-        // 打开图片查看器
-        function openImageViewer(src) {
-            viewerImg.src = src;
-            imageViewer.classList.add('active');
-        }
-        
-        // 关闭图片查看器
-        function closeImageViewer() {
-            imageViewer.classList.remove('active');
-        }
-        
-        // 保存数据到localStorage
-        function saveToLocalStorage() {
-            localStorage.setItem('lickFitnessData', JSON.stringify(appData));
-        }
-        
-        // 从localStorage加载数据
-        function loadData() {
-            const savedData = localStorage.getItem('lickFitnessData');
-            if (savedData) {
-                appData = JSON.parse(savedData);
-            }
-        }
-        
-        // 键盘事件监听
-        document.addEventListener('keydown', function(e) {
-            // 按ESC键关闭弹窗
-            if (e.key === 'Escape') {
-                closeModal();
-                closeImageViewer();
-            }
-        });
     </script>
 </body>
 </html>
