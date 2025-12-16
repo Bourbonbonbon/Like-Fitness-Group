@@ -514,6 +514,38 @@
         .hidden {
             display: none;
         }
+        
+        /* 视频容器 */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -686,7 +718,7 @@
                 
                 <div class="form-group">
                     <label class="form-label" for="media-upload">选择文件</label>
-                    <input type="file" id="media-upload" class="form-file" accept="image/*,video/*" multiple required>
+                    <input type="file" id="media-upload" class="form-file" accept="image/*,video/*" required>
                     <p id="upload-hint" class="upload-hint">支持格式：JPG、JPEG、PNG，最多上传5张图片</p>
                 </div>
                 
@@ -786,51 +818,6 @@
             if (!localStorage.getItem('background')) {
                 localStorage.setItem('background', JSON.stringify(null));
             }
-            
-            // 添加一些示例数据用于演示
-            addSampleData();
-        }
-        
-        // 添加示例数据
-        function addSampleData() {
-            // 检查是否已经有数据
-            const announcementData = JSON.parse(localStorage.getItem('announcement'));
-            if (announcementData.length === 0) {
-                const sampleAnnouncement = {
-                    id: Date.now(),
-                    title: "欢迎来到利克健身集团",
-                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxYTVmN2EiLz48dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkFubm91bmNlbWVudCAxPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XZWxjb21lIHRvIE1pbGVhZ2UgVHJhbnNwb3J0IEdyb3VwPC90ZXh0Pjwvc3ZnPg==",
-                    uploadDate: getCurrentDateTime()
-                };
-                announcementData.push(sampleAnnouncement);
-                localStorage.setItem('announcement', JSON.stringify(announcementData));
-            }
-            
-            // 添加示例品牌介绍
-            const brandData = JSON.parse(localStorage.getItem('brand'));
-            if (brandData.length === 0) {
-                const sampleBrand = {
-                    id: Date.now() + 1,
-                    title: "关于利克健身集团",
-                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxNTk4OTUiLz48dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkJyYW5kIEludHJvZHVjdGlvbjwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9ImWkbWlkZGxlIj5NaWxlYWdlIFRyYW5zcG9ydCBHcm91cCAtIFByb2Zlc3Npb25hbCBUcmFuc3BvcnRhdGlvbiBTZXJ2aWNlczwvdGV4dD48L3N2Zz4=",
-                    uploadDate: getCurrentDateTime()
-                };
-                brandData.push(sampleBrand);
-                localStorage.setItem('brand', JSON.stringify(brandData));
-            }
-            
-            // 添加示例LOGO
-            const logoData = JSON.parse(localStorage.getItem('logo'));
-            if (!logoData) {
-                const sampleLogo = {
-                    id: Date.now() + 2,
-                    title: "利克健身集团Logo",
-                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iNzAiIGZpbGw9IiMxNjk4OTUiLz48cGF0aCBkPSJNNDUgNjVoNjBjMTAgMCAxNSAxMCAxNSAyMHYyMGMwIDEwLTEwIDE1LTIwIDE1SDQ1Yy0xMCAwLTE1LTEwLTE1LTIwVjg1YzAtMTAgMTAtMTUgMjAtMTVaIiBmaWxsPSIjRkZGIi8+PHBhdGggZD0iTTcwIDYwdjU1aDE1VjYwSDcwWiIgZmlsbD0iIzE2OTg5NSIvPjwvc3ZnPg==",
-                    uploadDate: getCurrentDateTime()
-                };
-                localStorage.setItem('logo', JSON.stringify(sampleLogo));
-            }
-        }
         
         // 初始化UI
         function initUI() {
@@ -889,13 +876,6 @@
             document.getElementById('password-input').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     verifyPassword();
-                }
-            });
-            
-            // 视频控制
-            document.addEventListener('click', function(e) {
-                if (e.target && e.target.classList.contains('video-content')) {
-                    openVideoViewer(e.target.src, e.target.dataset.title);
                 }
             });
         }
@@ -982,36 +962,70 @@
                 const isVideo = type === 'video';
                 const mediaElement = document.createElement('div');
                 mediaElement.className = 'media-item';
-                mediaElement.innerHTML = `
-                    <${isVideo ? 'video' : 'img'} 
-                        src="${item.imageUrl || item.videoUrl}" 
-                        alt="${item.title}"
-                        class="${isVideo ? 'video-content' : 'media-content'}"
-                        ${isVideo ? 'data-title="' + item.title + '"' : ''}
-                        ${isVideo ? 'controls' : ''}
-                    >
-                    <div class="media-info">
-                        <h3 class="media-title">${item.title}</h3>
-                        <p class="media-date">${item.uploadDate}</p>
-                        <div class="manage-buttons">
-                            <button class="btn manage-btn btn-warning edit-btn" data-id="${item.id}" data-type="${type}">修改</button>
-                            <button class="btn manage-btn btn-danger delete-btn" data-id="${item.id}" data-type="${type}">删除</button>
+                
+                if (isVideo) {
+                    mediaElement.innerHTML = `
+                        <div class="video-wrapper">
+                            <video class="video-content" data-src="${item.videoUrl || item.imageUrl}" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMyYzM0NDEiLz48cGF0aCBkPSJNMTUwIDEyMHY2MGwxMDAtMzB6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+                                <source src="${item.videoUrl || item.imageUrl}" type="video/mp4">
+                                您的浏览器不支持视频播放
+                            </video>
+                            <button class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
                         </div>
-                    </div>
-                `;
+                        <div class="media-info">
+                            <h3 class="media-title">${item.title}</h3>
+                            <p class="media-date">${item.uploadDate}</p>
+                            <div class="manage-buttons">
+                                <button class="btn manage-btn btn-warning edit-btn" data-id="${item.id}" data-type="${type}">修改</button>
+                                <button class="btn manage-btn btn-danger delete-btn" data-id="${item.id}" data-type="${type}">删除</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    mediaElement.innerHTML = `
+                        <img src="${item.imageUrl || item.videoUrl}" 
+                             alt="${item.title}"
+                             class="media-content"
+                        >
+                        <div class="media-info">
+                            <h3 class="media-title">${item.title}</h3>
+                            <p class="media-date">${item.uploadDate}</p>
+                            <div class="manage-buttons">
+                                <button class="btn manage-btn btn-warning edit-btn" data-id="${item.id}" data-type="${type}">修改</button>
+                                <button class="btn manage-btn btn-danger delete-btn" data-id="${item.id}" data-type="${type}">删除</button>
+                            </div>
+                        </div>
+                    `;
+                }
                 
                 container.appendChild(mediaElement);
                 
                 // 为图片添加点击事件
                 if (!isVideo) {
                     const img = mediaElement.querySelector('img');
-                    img.addEventListener('click', () => openImageViewer(item.imageUrl, item.title));
+                    img.addEventListener('click', () => openImageViewer(item.imageUrl || item.videoUrl, item.title));
+                } else {
+                    // 为视频添加点击事件
+                    const videoWrapper = mediaElement.querySelector('.video-wrapper');
+                    const video = mediaElement.querySelector('video');
+                    const playBtn = mediaElement.querySelector('.video-play-btn');
+                    
+                    videoWrapper.addEventListener('click', () => openVideoViewer(item.videoUrl || item.imageUrl, item.title));
+                    
+                    // 视频播放按钮事件
+                    playBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openVideoViewer(item.videoUrl || item.imageUrl, item.title);
+                    });
                 }
             });
             
             // 为管理按钮添加事件
             container.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     const id = this.getAttribute('data-id');
                     const type = this.getAttribute('data-type');
                     editMediaItem(type, id);
@@ -1019,7 +1033,8 @@
             });
             
             container.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     const id = this.getAttribute('data-id');
                     const type = this.getAttribute('data-type');
                     deleteMediaItem(type, id);
@@ -1228,8 +1243,8 @@
                     // 创建媒体对象
                     const mediaItem = {
                         id: editingItemId || Date.now() + i,
-                        title: files.length > 1 ? `${title} (${i + 1})` : title,
-                        uploadDate: getCurrentDateTime()
+                        title: files.length > 1 && !editingItemId ? `${title} (${i + 1})` : title,
+                        uploadDate: editingItemId ? getCurrentDateTime() : getCurrentDateTime()
                     };
                     
                     // 根据类型设置URL
@@ -1332,16 +1347,19 @@
             // 设置文件上传提示
             const hintElement = document.getElementById('upload-hint');
             if (type === 'picture') {
-                hintElement.textContent = '支持格式：JPG、JPEG、PNG，不限制数量';
+                hintElement.textContent = '支持格式：JPG、JPEG、PNG，不限制数量（可选，不选则保留原文件）';
             } else if (type === 'video') {
-                hintElement.textContent = '支持格式：MP4、MOV，单个视频上限200MB';
+                hintElement.textContent = '支持格式：MP4、MOV，单个视频上限200MB（可选，不选则保留原文件）';
             } else if (type === 'logo') {
-                hintElement.textContent = '支持格式：JPG、JPEG、PNG，建议尺寸：75×75像素';
+                hintElement.textContent = '支持格式：JPG、JPEG、PNG，建议尺寸：75×75像素（可选，不选则保留原文件）';
             } else if (type === 'background') {
-                hintElement.textContent = '支持格式：JPG、JPEG、PNG，背景将覆盖整个网页';
+                hintElement.textContent = '支持格式：JPG、JPEG、PNG，背景将覆盖整个网页（可选，不选则保留原文件）';
             } else {
-                hintElement.textContent = '支持格式：JPG、JPEG、PNG，最多上传5张图片';
+                hintElement.textContent = '支持格式：JPG、JPEG、PNG，最多上传5张图片（可选，不选则保留原文件）';
             }
+            
+            // 文件输入非必填
+            document.getElementById('media-upload').required = false;
             
             document.getElementById('upload-modal').style.display = 'flex';
             isAuthenticated = true;
@@ -1394,7 +1412,9 @@
             `;
             
             // 显示控制条
-            document.getElementById('video-controls').classList.remove('hidden');
+            const controls = document.getElementById('video-controls');
+            controls.classList.remove('hidden');
+            controls.style.display = 'flex';
             
             // 设置控制条事件
             const video = document.getElementById('fullscreen-video');
