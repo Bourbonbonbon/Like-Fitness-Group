@@ -1493,25 +1493,6 @@
                 }
             };
             
-            // 倍速选择
-            speedSelect.value = video.playbackRate;
-            speedSelect.onchange = function() {
-                video.playbackRate = parseFloat(this.value);
-            };
-            
-            // 全屏按钮
-            fullscreenBtn.onclick = function() {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.mozRequestFullScreen) { /* Firefox */
-                    video.mozRequestFullScreen();
-                } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) { /* IE/Edge */
-                    video.msRequestFullscreen();
-                }
-            };
-            
             // 视频播放状态变化
             video.onplay = function() {
                 playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
