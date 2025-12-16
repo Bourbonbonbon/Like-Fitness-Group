@@ -818,6 +818,65 @@
             if (!localStorage.getItem('background')) {
                 localStorage.setItem('background', JSON.stringify(null));
             }
+            
+            // 添加一些示例数据用于演示
+            addSampleData();
+        }
+        
+        // 添加示例数据
+        function addSampleData() {
+            // 检查是否已经有数据
+            const announcementData = JSON.parse(localStorage.getItem('announcement'));
+            if (announcementData.length === 0) {
+                const sampleAnnouncement = {
+                    id: Date.now(),
+                    title: "欢迎来到利克健身集团",
+                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxYTVmN2EiLz48dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkFubm91bmNlbWVudCAxPC90ZXh0Pjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XZWxjb21lIHRvIE1pbGVhZ2UgVHJhbnNwb3J0IEdyb3VwPC90ZXh0Pjwvc3ZnPg==",
+                    uploadDate: getCurrentDateTime()
+                };
+                announcementData.push(sampleAnnouncement);
+                localStorage.setItem('announcement', JSON.stringify(announcementData));
+            }
+            
+            // 添加示例品牌介绍
+            const brandData = JSON.parse(localStorage.getItem('brand'));
+            if (brandData.length === 0) {
+                const sampleBrand = {
+                    id: Date.now() + 1,
+                    title: "关于利克健身集团",
+                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxNTk4OTUiLz48dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPkJyYW5kIEludHJvZHVjdGlvbjwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TWlsZWFnZSBUcmFuc3BvcnQgR3JvdXAgLSBQcm9mZXNzaW9uYWwgVHJhbnNwb3J0YXRpb24gU2VydmljZXM8L3RleHQ+PC9zdmc+",
+                    uploadDate: getCurrentDateTime()
+                };
+                brandData.push(sampleBrand);
+                localStorage.setItem('brand', JSON.stringify(brandData));
+            }
+            
+            // 添加示例视频
+            const videoData = JSON.parse(localStorage.getItem('video'));
+            if (videoData.length === 0) {
+                // 创建一个示例视频（使用base64编码的简单视频占位符）
+                const sampleVideo = {
+                    id: Date.now() + 2,
+                    title: "利克健身集团介绍视频",
+                    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", // 使用公共示例视频
+                    uploadDate: getCurrentDateTime()
+                };
+                videoData.push(sampleVideo);
+                localStorage.setItem('video', JSON.stringify(videoData));
+            }
+            
+            // 添加示例LOGO
+            const logoData = JSON.parse(localStorage.getItem('logo'));
+            if (!logoData) {
+                const sampleLogo = {
+                    id: Date.now() + 3,
+                    title: "利克健身集团Logo",
+                    imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iNzAiIGZpbGw9IiMxNjk4OTUiLz48cGF0aCBkPSJNNDUgNjVoNjBjMTAgMCAxNSAxMCAxNSAyMHYyMGMwIDEwLTEwIDE1LTIwIDE1SDQ1Yy0xMCAwLTE1LTEwLTE1LTIwVjg1YzAtMTAgMTAtMTUgMjAtMTVaIiBmaWxsPSIjRkZGIi8+PHBhdGggZD0iTTcwIDYwdjU1aDE1VjYwSDcwWiIgZmlsbD0iIzE2OTg5NSIvPjwvc3ZnPg==",
+                    uploadDate: getCurrentDateTime()
+                };
+                localStorage.setItem('logo', JSON.stringify(sampleLogo));
+            }
+        }
         
         // 初始化UI
         function initUI() {
