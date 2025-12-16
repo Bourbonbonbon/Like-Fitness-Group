@@ -242,6 +242,12 @@
             overflow: hidden;
             box-shadow: var(--box-shadow);
             background-color: white;
+            transition: var(--transition);
+        }
+        
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
         .video-wrapper {
@@ -956,7 +962,7 @@
                         <div class="image-info">
                             <div class="image-title">${item.title}</div>
                             <div class="image-date">${item.date}</div>
-                            <div class="action-buttons" style="margin-top: 10px; display: none;" data-item-id="${index}">
+                            <div class="action-buttons" data-item-id="${index}">
                                 <button class="btn btn-edit btn-small edit-item-btn"><i class="fas fa-edit"></i> 修改</button>
                                 <button class="btn btn-delete btn-small delete-item-btn"><i class="fas fa-trash"></i> 删除</button>
                             </div>
@@ -974,7 +980,7 @@
                         <div class="image-info">
                             <div class="image-title">${item.title}</div>
                             <div class="image-date">${item.date}</div>
-                            <div class="action-buttons" style="margin-top: 10px; display: none;" data-item-id="${index}">
+                            <div class="action-buttons" data-item-id="${index}">
                                 <button class="btn btn-edit btn-small edit-item-btn"><i class="fas fa-edit"></i> 修改</button>
                                 <button class="btn btn-delete btn-small delete-item-btn"><i class="fas fa-trash"></i> 删除</button>
                             </div>
@@ -1204,7 +1210,7 @@
                 
                 if (currentModalType === 'videos') {
                     previewItem.innerHTML = `
-                        <video style="width: 100%; height: 100%; object-fit: cover;">
+                        <video style="width: 100%; height: 100%; object-fit: cover;" controls>
                             <source src="${file.data}" type="video/mp4">
                         </video>
                         <div class="remove-preview" data-index="${index}">&times;</div>
@@ -1454,7 +1460,7 @@
                 if (e.target.closest('.edit-item-btn')) {
                     const buttonsContainer = e.target.closest('.action-buttons');
                     const itemId = parseInt(buttonsContainer.getAttribute('data-item-id'));
-                    const tabType = currentTab === 'media' ? 'images' : currentTab;
+                    const tabType = currentTab === 'media' ? (e.target.closest('.video-item') ? 'videos' : 'images') : currentTab;
                     showModal(tabType, itemId);
                 }
                 
@@ -1462,8 +1468,15 @@
                 if (e.target.closest('.delete-item-btn')) {
                     const buttonsContainer = e.target.closest('.action-buttons');
                     const itemId = parseInt(buttonsContainer.getAttribute('data-item-id'));
-                    const tabType = currentTab === 'media' ? 'images' : currentTab;
+                    const tabType = currentTab === 'media' ? (e.target.closest('.video-item') ? 'videos' : 'images') : currentTab;
                     deleteData(tabType, itemId);
+                }
+            });
+            
+            // 关闭图片查看弹窗
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this || e.target.closest('.close-modal')) {
+                    this.classList.remove('active');
                 }
             });
         }
@@ -1482,9 +1495,13 @@
                 // 检查文件类型
                 let isValid = false;
                 if (currentModalType === 'videos') {
-                    isValid = file.type.startsWith('video/') && (file.type === 'video/mp4' || file.type === 'video/quicktime');
+                    const videoTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo'];
+                    const fileExt = file.name.toLowerCase().split('.').pop();
+                    isValid = file.type.startsWith('video/') || ['mp4', 'mov', 'avi'].includes(fileExt);
                 } else {
-                    isValid = file.type.startsWith('image/') && (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png');
+                    const imageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                    const fileExt = file.name.toLowerCase().split('.').pop();
+                    isValid = file.type.startsWith('image/') || ['jpg', 'jpeg', 'png'].includes(fileExt);
                 }
                 
                 if (!isValid) {
