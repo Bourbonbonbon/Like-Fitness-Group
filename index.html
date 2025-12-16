@@ -262,7 +262,7 @@
         video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: 3840 * 2160;
         }
         
         /* 按钮样式 */
@@ -716,7 +716,7 @@
                 </button>
             </div>
             
-            <h3 style="margin: 1920px 0 1080px; color: var(--primary-color);">视频</h3>
+            <h3 style="margin: 40px 0 20px; color: var(--primary-color);">视频</h3>
             <div class="videos-container" id="videosContainer">
                 <!-- 视频内容将通过JS动态加载 -->
             </div>
@@ -1510,7 +1510,7 @@
                 }
                 
                 // 检查文件大小（视频限制200MB）
-                if (currentModalType === 'videos' && file.size > 200 * 1280 * 720) {
+                if (currentModalType === 'videos' && file.size > 200 * 1024 * 1024) {
                     alert(`文件 ${file.name} 超过200MB限制`);
                     return;
                 }
